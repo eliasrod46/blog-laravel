@@ -11,7 +11,7 @@
                 {!! Form::label('name', 'Nombre:', ['class' => 'block text-xl mb-2']) !!}
                 {!! Form::text('name', null, [
                     'class' => 'text-black rounded-lg',
-                    'placeholder' => 'Ingrese el nombre de la categoria',
+                    'placeholder' => 'Ingrese el nombre del rol',
                 ]) !!}
 
                 @error('name')
@@ -21,16 +21,17 @@
             <div class="mb-10">
                 <h2>Lista de permisos</h2>
 
-                @foreach ($permissions as $permission)
-                    {!! Form::checkbox('permissions[]', $permission->id, null, []) !!}
-                @endforeach
-                {!! Form::label('name', 'Nombre:', ['class' => 'block text-xl mb-2']) !!}
-                {!! Form::text('name', null, [
-                    'class' => 'text-black rounded-lg',
-                    'placeholder' => 'Ingrese el nombre de la categoria',
-                ]) !!}
+                <div class="flex flex-col justify-center items-center">
+                    @foreach ($permissions as $permission)
+                        <div class="flex w-2/6">
+                            {!! Form::checkbox('permissions[]', $permission->id, null, []) !!}
+                            <span class="font-bold">{{ $permission->group }}</span> / {{ $permission->description }}
+                        </div>
+                    @endforeach
+                </div>
 
-                @error('name')
+
+                @error('permissions[]')
                     <span class="text-red-500">{{ $message }}</span>
                 @enderror
             </div>
@@ -41,16 +42,4 @@
             {!! Form::close() !!}
         </div>
     </div>
-@endsection
-
-@section('js')
-    <script>
-        const name = document.getElementById('name');
-        const slug = document.getElementById('slug');
-        name.addEventListener('input', () => {
-            name.value = name.value.match(/[a-zA-Z1-9\s]+/g);
-            const valueName = name.value;
-            slug.value = valueName.toLowerCase().replace(/\s/g, '-');
-        });
-    </script>
 @endsection
