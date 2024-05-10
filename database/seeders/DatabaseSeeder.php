@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
         Storage::makeDirectory('Blog/posts');
         $this->call([
             UserSeeder::class,
+            PermissionsSeeder::class,
             //Blog
             CategorySeeder::class,
             TagSeeder::class,

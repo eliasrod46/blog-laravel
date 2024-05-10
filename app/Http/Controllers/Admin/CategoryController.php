@@ -8,6 +8,15 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('can:admin.categories.index')->only('index');
+        $this->middleware('can:admin.categories.create')->only('create','store');
+        $this->middleware('can:admin.users.edit')->only('edit','update');
+        $this->middleware('can:admin.users.destroy')->only('destroy');
+    }
+
+
     // Display a listing of the categories.
     public function index(){
         $categories = Category::all();
@@ -31,10 +40,6 @@ class CategoryController extends Controller
         return redirect()->route('admin.categories.edit',$category)->with('info', 'Categoria agregada con exito');;
     }
 
-    // Display the specified category.
-    public function show(Category $category){
-        return view('admin.categories.show', compact('category'));
-    }
 
     // Show the form for editing the specified category.
     public function edit(Category $category){

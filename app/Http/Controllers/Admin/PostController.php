@@ -12,6 +12,15 @@ use App\Models\Blog\Category;
 
 class PostController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('can:admin.post.index')->only('index');
+        $this->middleware('can:admin.post.create')->only('create','store');
+        $this->middleware('can:admin.post.edit')->only('edit','update');
+        $this->middleware('can:admin.post.destroy')->only('destroy');
+    }
+
+
     // Display a listing of the posts.
     public function index(){
         return view('admin.posts.index');

@@ -11,11 +11,13 @@
     <section class="mb-5 px-4 mx-auto">
 
         <!-- New Tag Button -->
-        <div class="my-5">
-            <a href="{{ route('admin.tags.create') }}"
-                class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
-                Nueva Etiqueta </a>
-        </div>
+        @can('admin.tags.create')
+            <div class="my-5">
+                <a href="{{ route('admin.tags.create') }}"
+                    class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
+                    Nueva Etiqueta </a>
+            </div>
+        @endcan
 
         <!-- Table -->
         <div class="flex flex-col mt-6">
@@ -64,19 +66,26 @@
                                         </td>
                                         <td class="px-4 py-4 text-sm font-medium whitespace-nowrap col-span-2">
                                             <div class="flex justify-center items-center gap-6">
-                                                <a href="{{ route('admin.tags.show', $tag) }}"
-                                                    class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
-                                                    Ver </a>
-                                                <a href="{{ route('admin.tags.edit', $tag) }}"
-                                                    class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
-                                                    Editar </a>
-                                                <form action="{{ route('admin.tags.destroy', $tag) }}" method="POST">
-                                                    @method('DELETE')
-                                                    @csrf
-                                                    <button
-                                                        class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-                                                        type="submit">Eliminar</button>
-                                                </form>
+                                                @can('admin.tags.show')
+                                                    <a href="{{ route('admin.tags.show', $tag) }}"
+                                                        class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
+                                                        Ver </a>
+                                                @endcan
+
+                                                @can('admin.tags.edit')
+                                                    <a href="{{ route('admin.tags.edit', $tag) }}"
+                                                        class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
+                                                        Editar </a>
+                                                @endcan
+                                                @can('admin.tags.destroy')
+                                                    <form action="{{ route('admin.tags.destroy', $tag) }}" method="POST">
+                                                        @method('DELETE')
+                                                        @csrf
+                                                        <button
+                                                            class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                                                            type="submit">Eliminar</button>
+                                                    </form>
+                                                @endcan
 
                                             </div>
                                         </td>

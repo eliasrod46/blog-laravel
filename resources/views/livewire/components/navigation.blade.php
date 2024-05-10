@@ -73,8 +73,13 @@
                                 <!-- Active: "bg-gray-100", Not Active: "" -->
                                 <a href="{{ route('profile') }}" class="block px-4 py-2 text-sm text-gray-700"
                                     role="menuitem" tabindex="-1" id="user-menu-item-0">Tu Perfil</a>
-                                <a href="{{ route('admin.home') }}" class="block px-4 py-2 text-sm text-gray-700"
-                                    role="menuitem" tabindex="-1" id="user-menu-item-0">Panel Administrador</a>
+
+                                @can('admin.home')
+                                    <a href="{{ route('admin.home') }}" class="block px-4 py-2 text-sm text-gray-700"
+                                        role="menuitem" tabindex="-1" id="user-menu-item-0">Panel Administrador</a>
+                                @endcan
+
+
 
                                 <button wire:click="logout" class="block px-4 py-2 text-sm text-gray-700">
                                     Cerrar Sesion
